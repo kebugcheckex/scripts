@@ -12,13 +12,15 @@ if (-not $file.Exists)
 }
 $container = Split-Path -Path $inputFile
 $outputFile = "$container$($file.BaseName).720p$($file.Extension)"
+# $outputFile = "R:\$($file.BaseName).720p$($file.Extension)"
 
 ffmpeg `
-    -vsync 0 `
     -hwaccel cuvid `
+    -hwaccel_output_format cuda `
     -c:v h264_cuvid `
     -resize 1280x720 `
     -i $inputFile `
+    -fps_mode passthrough `
     -c:a copy `
     -c:v h264_nvenc `
     -b:v 1M `
