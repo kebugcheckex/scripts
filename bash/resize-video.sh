@@ -15,15 +15,15 @@ extension=${base_name##*.}
 output_path=/mnt/ramdisk/debug
 mkdir -p $output_path
 
-$HOME/code/ffmpeg/ffmpeg \
+#$HOME/code/ffmpeg/ffmpeg \
+ffmpeg \
     -hwaccel cuvid \
     -hwaccel_output_format cuda \
     -c:v h264_cuvid \
-    –resize 1280x720 \
+    -resize 1280x720 \
     -i $1 \
     -fps_mode passthrough \
     -c:v h264_nvenc \
     -c:a copy \
     -b:v 1M \
     "${output_path}/${file_name}.720p.${extension}"
-    
